@@ -1,0 +1,78 @@
+# Node.js dependencies
+/node_modules
+**/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build files
+dist
+build
+
+# Dependency directories
+jspm_packages/
+
+# dotenv environment variables file
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Docker files
+**/.docker
+.dockerignore
+
+# Coverage directory used by testing tools
+coverage/
+
+# Optional npm cache directory
+.npm
+
+# Optional yarn cache directory
+.yarn
+.yarn-integrity
+
+# Parcel-bundler cache (https://parceljs.org/)
+.cache
+
+# Other configurations
+*.lock
+*.bak
+
+# Lint/Formatting
+.eslintcache
+.prettierignore
+
+# Backend specific
+backend/.env
+backend/node_modules
+
+# Frontend specific
+frontend/.env
+frontend/node_modules
+
+# backend local api test
+requests.rest
+
+frontend/package-lock.json
+frontend/package.json
+backend/package-lock.json
+backend/package.json
