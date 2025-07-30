@@ -1,0 +1,9 @@
+{
+	"id": "mM2evFP0sPByxg2",
+	"json": "{\"id\":\"mM2evFP0sPByxg2\",\"url\":\"https://cheerio.js.org/docs/api\",\"loadedUrl\":\"https://cheerio.js.org/docs/api\",\"uniqueKey\":\"https://cheerio.js.org/docs/api\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2025-07-30T16:40:30.858Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://cheerio.js.org/docs/api",
+	"url": "https://cheerio.js.org/docs/api"
+}
