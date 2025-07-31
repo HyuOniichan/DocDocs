@@ -3,26 +3,10 @@
         {
             "name": "cheerio",
             "info": {
-                "repository": "https://github.com/cheeriojs/cheerio",
-                "homepage": "https://cheerio.js.org/"
+                "repository": "",
+                "homepage": ""
             },
-            "links": [
-                {
-                    "url": "https://cheerio.js.org/docs/intro",
-                    "title": "Welcome to Cheerio! | cheerio",
-                    "content": ""
-                },
-                {
-                    "url": "https://cheerio.js.org/",
-                    "title": "The industry standard for working with HTML in JavaScript | cheerio",
-                    "content": ""
-                },
-                {
-                    "url": "https://cheerio.js.org/docs/api",
-                    "title": "cheerio",
-                    "content": ""
-                }
-            ]
+            "links": []
         },
         {
             "name": "crawlee",

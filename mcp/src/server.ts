@@ -1,12 +1,12 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
-import { getPackages, initStorage, setSitemap } from "./services/packageService"
+import { getPackages, getStorage, initStorage, setSitemap } from "./services/packageService"
 import z from "zod"
 import writeJson from "./utils/writeJson"
 import config from "./config/config"
 import importJson from "./utils/importJson"
 import { StoredDepType } from "./types"
-import "mcps-logger/console";
+// import "mcps-logger/console";
 
 const server = new McpServer({
     name: "docdocs-mcp-server",
@@ -18,8 +18,7 @@ const server = new McpServer({
     }
 })
 
-server.resource(
-    'packages',
+server.resource('packages',
     'packages://all',
     {
         title: 'Packages',
@@ -48,8 +47,36 @@ server.resource(
     }
 )
 
-server.tool(
-    'init-storage',
+server.resource('get-storage', 
+    'get-storage://all',
+    {
+        title: 'Get Storage',
+        description: 'Get the storage json file',
+        mimeType: 'application/json'
+    }, 
+    async (uri) => {
+        try {
+            const storage = await getStorage(); 
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: JSON.stringify(storage),
+                    mimeType: 'application/json'
+                }]
+            }
+        } catch {
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: 'Failed to get storage',
+                    mimeType: 'application/json'
+                }]
+            }
+        }
+    }
+)
+
+server.tool('init-storage',
     'Create a storage json file for later scraping and retrieving',
     {
         title: "Init Storage",
@@ -78,8 +105,7 @@ server.tool(
     }
 )
 
-server.tool(
-    'set-sitemap',
+server.tool('set-sitemap',
     'Set the sitemap for a specific package',
     {
         name: z.string()

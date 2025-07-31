@@ -45,6 +45,17 @@ const initStorage = async (): Promise<StorageType> => {
     }
 }
 
+const getStorage = async (): Promise<StorageType> => {
+    try {
+        const storage = await importJson(config.output);
+        return storage;
+    } catch {
+        return {
+            storage: []
+        }
+    }
+}
+
 const setSitemap = async (name: string): Promise<StoredDepType> => {
     try {
         const storage = await importJson(config.output);
@@ -103,5 +114,6 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
 export {
     getPackages,
     initStorage,
+    getStorage,
     setSitemap
 }

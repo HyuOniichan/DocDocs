@@ -31,6 +31,8 @@ jspm_packages/
 *.ntvs*
 *.njsproj
 *.sln
+mcp/storage
+mcp/src/storage
 
 # OS-specific files
 .DS_Store
