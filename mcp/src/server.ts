@@ -1,6 +1,6 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
-import { getPackages, getStorage, initStorage, setSitemap } from "./services/packageService"
+import { getPackages, getSitemaps, initSitemaps, setSitemap } from "./services/packageService"
 import z from "zod"
 import writeJson from "./utils/writeJson"
 import config from "./config/config"
@@ -22,7 +22,7 @@ server.resource('packages',
     'packages://all',
     {
         title: 'Packages',
-        description: 'Get all packages in package.json',
+        description: 'Extract dependencies (packages) in input package.json file',
         mimeType: 'application/json'
     },
     async (uri) => {
@@ -47,20 +47,20 @@ server.resource('packages',
     }
 )
 
-server.resource('get-storage', 
-    'get-storage://all',
+server.resource('get-sitemaps', 
+    'sitemaps://all',
     {
-        title: 'Get Storage',
-        description: 'Get the storage json file',
+        title: 'Get All Sitemaps',
+        description: 'Get the sitemaps including packages and their links to github repository and homepage',
         mimeType: 'application/json'
     }, 
     async (uri) => {
         try {
-            const storage = await getStorage(); 
+            const sitemaps = await getSitemaps(); 
             return {
                 contents: [{
                     uri: uri.href,
-                    text: JSON.stringify(storage),
+                    text: JSON.stringify(sitemaps),
                     mimeType: 'application/json'
                 }]
             }
@@ -68,7 +68,7 @@ server.resource('get-storage',
             return {
                 contents: [{
                     uri: uri.href,
-                    text: 'Failed to get storage',
+                    text: 'Failed to get sitemaps',
                     mimeType: 'application/json'
                 }]
             }
@@ -76,10 +76,51 @@ server.resource('get-storage',
     }
 )
 
-server.tool('init-storage',
-    'Create a storage json file for later scraping and retrieving',
+server.resource('get-sitemap', 
+    new ResourceTemplate('sitemaps://{name}', { list: undefined }), 
     {
-        title: "Init Storage",
+        title: 'Get Sitemap', 
+        description: 'Get the sitemap of a specific package',
+        mimeType: 'application/json'
+    }, 
+    async (uri, { name }) => {
+        try {
+            const sitemaps = await getSitemaps(); 
+            const sitemap = sitemaps.storage.find((s: StoredDepType) => s.name === name); 
+
+            if (sitemap === undefined) {
+                return {
+                    contents: [{
+                        uri: uri.href,
+                        text: "Sitemap not found",
+                        mimeType: 'application/json'
+                    }]
+                }
+            }
+
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: JSON.stringify(sitemap),
+                    mimeType: 'application/json'
+                }]
+            }
+        } catch {
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: 'Failed to get sitemap',
+                    mimeType: 'application/json'
+                }]
+            }
+        }
+    }
+)
+
+server.tool('init-sitemaps',
+    'Initialize a sitemaps json file for saving packages sitemaps later',
+    {
+        title: "Init Sitemaps",
         readOnlyHint: false,
         destructiveHint: false,
         idempotentHint: false,
@@ -87,18 +128,18 @@ server.tool('init-storage',
     },
     async () => {
         try {
-            const storage = await initStorage();
+            const storage = await initSitemaps();
             await writeJson(storage); 
             
             return {
                 content: [{
-                    type: "text", text: "Storage initialized"
+                    type: "text", text: "Sitemaps initialized"
                 }]
             }
         } catch {
             return {
                 content: [{
-                    type: "text", text: "Failed to initialize storage"
+                    type: "text", text: "Failed to initialize sitemaps"
                 }]
             }
         }
@@ -106,7 +147,7 @@ server.tool('init-storage',
 )
 
 server.tool('set-sitemap',
-    'Set the sitemap for a specific package',
+    'Set sitemap (links to github repository and homepage) for a specific package',
     {
         name: z.string()
     },

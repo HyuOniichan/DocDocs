@@ -3,6 +3,8 @@ import { input, select } from "@inquirer/prompts";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
+import { CoreMessage, generateText, jsonSchema, ToolSet } from "ai";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 const mcp = new Client({
     name: "test-client",
@@ -16,7 +18,11 @@ const mcp = new Client({
 const transport = new StdioClientTransport({
     command: "node",
     args: ["build/server.js"],
-    stderr: "ignore",
+    stderr: "inherit",
+})
+
+const google = createGoogleGenerativeAI({
+    apiKey: process.env.GEMINI_API_KEY
 })
 
 async function handleTool(tool: Tool) {
@@ -55,6 +61,37 @@ async function handleResource(uri: string) {
     console.log(JSON.stringify(JSON.parse(res.contents[0].text as string), null, 2))
 }
 
+async function handleQuery(tools: Tool[]) {
+    const query = await input({ message: "Enter your query:" });
+
+    const { text, toolResults} = await generateText({
+        model: google("gemini-2.0-flash"),
+        system: `
+            You are an AI assistant that can solve user queries using tools. 
+            Available tools: ${tools.map((t, index) => `(${index+1}) ${t.name} - ${t.description}`).join(", ")}. 
+        `,
+        prompt: query,
+        tools: tools.reduce((obj, tool) => ({
+            ...obj,
+            [tool.name]: {
+                description: tool.description,
+                parameters: jsonSchema(tool.inputSchema),
+                execute: async (args: Record<string, any>) => (
+                    await mcp.callTool({
+                        name: tool.name,
+                        arguments: args
+                    })
+                )
+            }
+        }), {} as ToolSet)
+    })
+
+    console.log(
+        // @ts-expect-error
+        text || toolResults[0]?.result?.content[0]?.text || "No text generated."
+    )
+}
+
 async function main() {
     await mcp.connect(transport);
     const [{ tools }, { resources }] = await Promise.all([
@@ -67,7 +104,7 @@ async function main() {
     while (true) {
         const option = await select({
             message: "Select an option",
-            choices: ['Tools', 'Resources']
+            choices: ['Tools', 'Resources', 'Query']
         })
 
         switch (option) {
@@ -107,8 +144,8 @@ async function main() {
                     ]
                 })
 
-                const uri = resources.find(resource => resource.uri === resourceUri)?.uri 
-                    // ?? resourceTemplates.find(template => template.uriTemplate === resourceUri)?.uriTemplate
+                const uri = resources.find(resource => resource.uri === resourceUri)?.uri
+                // ?? resourceTemplates.find(template => template.uriTemplate === resourceUri)?.uriTemplate
 
                 if (uri == null) {
                     console.error("Resource not found");
@@ -118,6 +155,9 @@ async function main() {
 
                 break;
 
+            case 'Query':
+                await handleQuery(tools);
+                break;
         }
     }
 }

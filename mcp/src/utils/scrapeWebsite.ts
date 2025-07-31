@@ -5,7 +5,7 @@ const scrapeWebsite = async (page_urls: string[]): Promise<LinkType[]> => {
     const data: LinkType[] = [];
 
     // Hardcode 
-    const maxRequest = 10; 
+    const maxRequest = 7; 
 
     try {
         const crawler = new PlaywrightCrawler({

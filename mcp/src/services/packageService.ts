@@ -22,7 +22,7 @@ const getPackages = async (): Promise<DepsType> => {
     }
 }
 
-const initStorage = async (): Promise<StorageType> => {
+const initSitemaps = async (): Promise<StorageType> => {
     try {
         const deps = await getPackages();
 
@@ -45,7 +45,7 @@ const initStorage = async (): Promise<StorageType> => {
     }
 }
 
-const getStorage = async (): Promise<StorageType> => {
+const getSitemaps = async (): Promise<StorageType> => {
     try {
         const storage = await importJson(config.output);
         return storage;
@@ -60,11 +60,15 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
     try {
         const storage = await importJson(config.output);
 
+        console.error(1)
+        console.error(storage)
+        console.error(storage.storage)
+
         const editingPackage = storage.storage.find((p: StoredDepType) => p.name === name);
 
         // check if the editingPackage exists, if not, return 
         if (editingPackage === undefined) {
-            console.log("Package not found")
+            console.error("Package not found")
             return {
                 name: "",
                 info: { repository: "", homepage: "" },
@@ -76,7 +80,7 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
             editingPackage.info = await getInfo(name);
 
             if (editingPackage.info.repository === "" && editingPackage.info.homepage === "") {
-                console.log("Failed to get package's info");
+                console.error("Failed to get package's info");
             }
 
             if (editingPackage.info.homepage !== "") {
@@ -91,17 +95,17 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
         // There must be at least 1 link (homepage link)
         if (editingPackage.links.length > 0) {
             const scrapedLinks = await getLinks(editingPackage.links.map((l: LinkType) => l.url));
-            console.log(scrapedLinks)
+            console.error(scrapedLinks)
             editingPackage.links = scrapedLinks
         } else {
-            console.log("Homepage url not found");
+            console.error("Homepage url not found");
         }
 
         return editingPackage;
 
     } catch (e) {
-        console.log("Failed to set sitemap")
-        console.log("Error: ", e)
+        console.error("Failed to set sitemap")
+        console.error("Error: ", e)
         return {
             name,
             info: { repository: "", homepage: "" },
@@ -113,7 +117,7 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
 
 export {
     getPackages,
-    initStorage,
-    getStorage,
+    initSitemaps,
+    getSitemaps,
     setSitemap
 }
