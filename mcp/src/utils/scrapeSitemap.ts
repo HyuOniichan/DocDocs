@@ -1,7 +1,7 @@
 import { PlaywrightCrawler } from 'crawlee';
 import { LinkType } from '../types';
 
-const scrapeWebsite = async (page_urls: string[]): Promise<LinkType[]> => {
+const scrapeSitemap = async (page_urls: string[]): Promise<LinkType[]> => {
     const data: LinkType[] = [];
 
     // Hardcode 
@@ -32,4 +32,4 @@ const scrapeWebsite = async (page_urls: string[]): Promise<LinkType[]> => {
     return data;
 }
 
-export default scrapeWebsite
+export default scrapeSitemap

@@ -1,6 +1,6 @@
 import { InfoType, LinkType } from "../types/"
 import scrapeNpmPage from "../utils/scrapeNpm"
-import scrapeWebsite from "../utils/scrapeWebsite";
+import scrapeSitemap from "../utils/scrapeSitemap";
 
 const getInfo = async (name: string) => {
     try {
@@ -16,7 +16,7 @@ const getInfo = async (name: string) => {
 
 const getLinks = async (start_url: string[]) => {
     try {
-        const crawlResult: LinkType[] = await scrapeWebsite(start_url); 
+        const crawlResult: LinkType[] = await scrapeSitemap(start_url); 
         return crawlResult; 
     } catch {
         console.log("Failed to get links");
