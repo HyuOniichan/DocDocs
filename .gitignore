@@ -73,8 +73,3 @@ frontend/node_modules
 
 # backend local api test
 requests.rest
-
-frontend/package-lock.json
-frontend/package.json
-backend/package-lock.json
-backend/package.json
