@@ -1,7 +1,9 @@
-import { DepsType, InfoType, LinkType, StorageType, StoredDepType } from '../types/'
+import { DepsType, InfoType, LinkType, StorageType, StoredDepType } from '../types'
 import importJson from '../utils/importJson'
 import config from '../config/config'
-import { getInfo, getLinks } from './scrapeService';
+import scrapePage from '../utils/scrapePage';
+import scrapeNpmPage from '../utils/scrapeNpm';
+import scrapeSitemap from '../utils/scrapeSitemap';
 
 const getPackages = async (): Promise<DepsType> => {
     try {
@@ -60,10 +62,6 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
     try {
         const storage = await importJson(config.output);
 
-        console.error(1)
-        console.error(storage)
-        console.error(storage.storage)
-
         const editingPackage = storage.storage.find((p: StoredDepType) => p.name === name);
 
         // check if the editingPackage exists, if not, return 
@@ -77,7 +75,7 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
         }
 
         if (editingPackage.info.repository === "" && editingPackage.info.homepage === "") {
-            editingPackage.info = await getInfo(name);
+            editingPackage.info = await scrapeNpmPage(name);
 
             if (editingPackage.info.repository === "" && editingPackage.info.homepage === "") {
                 console.error("Failed to get package's info");
@@ -94,7 +92,7 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
 
         // There must be at least 1 link (homepage link)
         if (editingPackage.links.length > 0) {
-            const scrapedLinks = await getLinks(editingPackage.links.map((l: LinkType) => l.url));
+            const scrapedLinks = await scrapeSitemap(editingPackage.links.map((l: LinkType) => l.url));
             console.error(scrapedLinks)
             editingPackage.links = scrapedLinks
         } else {
@@ -112,12 +110,42 @@ const setSitemap = async (name: string): Promise<StoredDepType> => {
             links: []
         }
     }
+}
 
+const getPage = async (name: string, title: string): Promise<string> => {
+    try {
+        const storage = await importJson(config.output);
+
+        const links = storage.storage.find((p: StoredDepType) => p.name === name)?.links;
+        if (links === undefined || links.length === 0) {
+            console.error(`No links found for package: ${name}`);
+            return "";
+        }
+
+        const pageUrl = links.find((l: LinkType) => l.title === title)?.url;
+        if (pageUrl === undefined) {
+            console.error(`No link found with title: ${title}`);
+            return "";
+        }
+        
+        const page = await scrapePage(pageUrl);
+        if (page === "") {
+            console.error(`Failed to scrape page: ${pageUrl}`);
+            return "";
+        }
+        
+        return page; 
+
+    } catch (e) {
+        console.error("Failed to get page")
+        return ""; 
+    }
 }
 
 export {
     getPackages,
     initSitemaps,
     getSitemaps,
-    setSitemap
+    setSitemap,
+    getPage
 }

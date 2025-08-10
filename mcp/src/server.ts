@@ -1,11 +1,11 @@
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
-import { getPackages, getSitemaps, initSitemaps, setSitemap } from "./services/packageService"
+import { getPackages, getPage, getSitemaps, initSitemaps, setSitemap } from "./services/storageService"
 import z from "zod"
 import writeJson from "./utils/writeJson"
 import config from "./config/config"
 import importJson from "./utils/importJson"
-import { StoredDepType } from "./types"
+import { LinkType, StoredDepType } from "./types"
 // import "mcps-logger/console";
 
 const server = new McpServer({
@@ -117,6 +117,59 @@ server.resource('get-sitemap',
     }
 )
 
+server.resource('get-page', 
+    new ResourceTemplate('pages://{name}/{title}', { list: undefined }), 
+    {
+        title: 'Get Page', 
+        description: 'Get the page content of a specific package',
+        mimeType: 'application/json'
+    }, 
+    async (uri, { name, title }) => {
+        try {
+            if (name === "" || title === "") {
+                return {
+                    contents: [{
+                        uri: uri.href,
+                        text: "Package name or title isn't provided",
+                        mimeType: 'application/json'
+                    }]
+                }
+            }
+
+            const page = await getPage(name as string, title as string);
+
+            if (page === "") {
+                return {
+                    contents: [{
+                        uri: uri.href,
+                        text: "Page not found",
+                        mimeType: 'application/json'
+                    }]
+                }
+            }
+
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: page,
+                    mimeType: 'text/plain'
+                }]
+            }
+        } catch (e) {
+            console.error('Failed to get page'); 
+            console.error(e); 
+            
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: 'Failed to get page',
+                    mimeType: 'application/json'
+                }]
+            }
+        }
+    }
+)
+
 server.tool('init-sitemaps',
     'Initialize a sitemaps json file for saving packages sitemaps later',
     {
@@ -192,6 +245,72 @@ server.tool('set-sitemap',
             return {
                 content: [{
                     type: "text", text: "Failed to set sitemap"
+                }]
+            };
+        }
+    }
+)
+
+server.tool('set-page', 
+    'Set scraped page content for a specific package', 
+    {
+        name: z.string(),
+        title: z.string()
+    },
+    {
+        title: "Set Page",
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true
+    },
+    async ({ name, title }) => {
+        try {
+            const page = await getPage(name, title);
+            
+            if (page === "") {
+                return {
+                    content: [{
+                        type: "text", text: "Page not found"
+                    }]
+                };
+            }
+            
+            const storage = await importJson(config.output); 
+            const packageId = storage.storage.findIndex((p: StoredDepType) => p.name === name); 
+            if (packageId === -1) {
+                return {
+                    content: [{
+                        type: "text", text: "Package not found"
+                    }]
+                };
+            }
+            
+            const links = storage.storage[packageId].links; 
+            const linkIndex = links.findIndex((l: LinkType) => l.title === title); 
+            if (linkIndex === -1) {
+                return {
+                    content: [{
+                        type: "text", text: "Link not found"
+                    }]
+                };
+            }
+            
+            links[linkIndex].content = page; 
+            await writeJson(storage); 
+            
+            return {
+                content: [{
+                    type: "text", text: "Page set successfully"
+                }]
+            };
+        } catch (e) {
+            console.error('Failed to set page'); 
+            console.error(e); 
+            
+            return {
+                content: [{
+                    type: "text", text: 'Failed to set page'
                 }]
             };
         }
