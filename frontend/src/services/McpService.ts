@@ -1,4 +1,4 @@
-import { DocLink } from "@/components/DocumentationPanel";
+import { DocLink } from "@/types/";
 
 export interface MCPTool {
     name: string;

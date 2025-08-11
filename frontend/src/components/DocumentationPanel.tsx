@@ -7,20 +7,8 @@ import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
-
-export interface DocLink {
-    id: string;
-    name: string;
-    url: string;
-    selected: boolean;
-}
-
-export interface TechDoc {
-    id: string;
-    name: string;
-    links: DocLink[];
-    expanded: boolean;
-}
+import { DocLink, TechDoc } from "@/types";
+import { techNames, mockDocs } from "@/types/variables";
 
 interface DocumentationPanelProps {
     onSelectedLinksChange: (selectedLinks: DocLink[]) => void;
@@ -37,15 +25,7 @@ export const DocumentationPanel = ({ onSelectedLinksChange, userQuery }: Documen
 
     // Extract technologies from user query
     const extractTechnologies = (query: string): string[] => {
-        const techs = [
-            'react', 'vue', 'angular', 'svelte', 'javascript', 'typescript', 'node.js', 'express',
-            'next.js', 'nuxt', 'gatsby', 'tailwind', 'bootstrap', 'css', 'html', 'sass', 'scss',
-            'python', 'django', 'flask', 'fastapi', 'java', 'spring', 'kotlin', 'php', 'laravel',
-            'ruby', 'rails', 'go', 'rust', 'c#', 'asp.net', 'mongodb', 'postgresql', 'mysql',
-            'redis', 'docker', 'kubernetes', 'aws', 'azure', 'gcp', 'firebase', 'supabase'
-        ];
-
-        return techs.filter(tech =>
+        return techNames.filter(tech =>
             query.toLowerCase().includes(tech.toLowerCase()) ||
             query.toLowerCase().includes(tech.replace('.', '').toLowerCase()) || 
             query.toLowerCase().includes(tech.replace(' ', '').toLowerCase())
@@ -54,23 +34,6 @@ export const DocumentationPanel = ({ onSelectedLinksChange, userQuery }: Documen
 
     // Simulate documentation scraping
     const scrapeDocumentation = async (tech: string): Promise<DocLink[]> => {
-        const mockDocs: Record<string, DocLink[]> = {
-            'react': [
-                { id: '1', name: 'Getting Started', url: 'https://react.dev/learn', selected: false },
-                { id: '2', name: 'Hooks Reference', url: 'https://react.dev/reference/react', selected: false },
-                { id: '3', name: 'Components', url: 'https://react.dev/learn/your-first-component', selected: false }
-            ],
-            'typescript': [
-                { id: '4', name: 'Handbook', url: 'https://www.typescriptlang.org/docs/', selected: false },
-                { id: '5', name: 'Types', url: 'https://www.typescriptlang.org/docs/handbook/2/everyday-types.html', selected: false },
-                { id: '6', name: 'Interfaces', url: 'https://www.typescriptlang.org/docs/handbook/2/objects.html', selected: false }
-            ],
-            'javascript': [
-                { id: '7', name: 'MDN JavaScript', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', selected: false },
-                { id: '8', name: 'ES6 Features', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla', selected: false }
-            ]
-        };
-
         return mockDocs[tech.toLowerCase()] || [];
     };
 

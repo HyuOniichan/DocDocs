@@ -7,23 +7,10 @@ import { Card } from "@/components/ui/card";
 import ReactMarkdown from "react-markdown";
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { DocumentationPanel } from "@/components/DocumentationPanel";
-
-interface Message {
-    id: string;
-    content: string;
-    sender: "user" | "assistant";
-    timestamp: Date;
-}
-
-import { DocLink } from "@/components/DocumentationPanel";
+import { DocLink, Message } from "@/types/";
 import { MCPService } from "@/services/McpService";
-
-const examplePrompts = [
-    "Explain how React hooks work",
-    "What's the difference between let, const, and var?",
-    "How do I deploy a React app?",
-    "Best practices for TypeScript types"
-];
+import { examplePrompts } from "@/types/variables";
+import { generateResponse } from "@/services";
 
 export const ChatInterface = () => {
     const [messages, setMessages] = useState<Message[]>([
@@ -64,36 +51,13 @@ export const ChatInterface = () => {
         setTimeout(() => {
             const response: Message = {
                 id: (Date.now() + 1).toString(),
-                content: generateResponse(content),
+                content: generateResponse(mcpService, content, selectedLinks),
                 sender: "assistant",
                 timestamp: new Date()
             };
             setMessages(prev => [...prev, response]);
             setIsLoading(false);
         }, 1500);
-    };
-
-    const generateResponse = (userMessage: string): string => {
-        // Get context from selected documentation links
-        const contextPrompt = mcpService.generateContextPrompt();
-
-        let baseResponse = "";
-
-        if (userMessage.toLowerCase().includes("react")) {
-            baseResponse = "React is a JavaScript library for building user interfaces. It uses a component-based architecture where you create reusable UI components. Key concepts include:\n\n• **Components**: Reusable pieces of UI\n• **Props**: Data passed to components\n• **State**: Component's internal data\n• **Hooks**: Functions that let you use state and lifecycle features\n\nWould you like me to explain any of these concepts in more detail?";
-        } else if (userMessage.toLowerCase().includes("typescript")) {
-            baseResponse = "TypeScript is a superset of JavaScript that adds static type checking. Benefits include:\n\n• **Type Safety**: Catch errors at compile time\n• **Better IDE Support**: Autocomplete and refactoring\n• **Self-documenting Code**: Types serve as documentation\n• **Easier Refactoring**: Confidence when changing code\n\nHere's a simple example:\n```typescript\ninterface User {\n  name: string;\n  age: number;\n}\n\nconst user: User = {\n  name: \"John\",\n  age: 30\n};\n```";
-        } else {
-            baseResponse = "I understand you're asking about development concepts. Could you be more specific about what you'd like to learn? I'm here to help explain technical documentation, programming concepts, and best practices in a clear and beginner-friendly way.";
-        }
-
-        // Add context from selected links if available
-        if (selectedLinks.length > 0) {
-            baseResponse += `\n\n**📚 I also have access to these documentation resources:**\n${selectedLinks.map(link => `• [${link.name}](${link.url})`).join('\n')
-                }\n\nI can search through these resources to provide more detailed and accurate information.`;
-        }
-
-        return baseResponse + contextPrompt;
     };
 
     return (
@@ -131,8 +95,8 @@ export const ChatInterface = () => {
                                 >
                                     <div
                                         className={`max-w-[80%] rounded-2xl px-6 py-4 ${message.sender === "user"
-                                                ? "bg-chat-user text-chat-user-foreground"
-                                                : "bg-chat-assistant text-chat-assistant-foreground border border-border"
+                                            ? "bg-chat-user text-chat-user-foreground"
+                                            : "bg-chat-assistant text-chat-assistant-foreground border border-border"
                                             }`}
                                     >
                                         <div className="prose prose-sm max-w-none prose-headings:text-inherit prose-p:text-inherit prose-strong:text-inherit prose-code:text-inherit prose-pre:text-inherit [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
