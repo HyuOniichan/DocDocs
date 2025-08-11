@@ -7,7 +7,7 @@ export default defineConfig(() => ({
     server: {
         host: "::",
         port: 8080,
-        allowedHosts: ["7dad701198b4.ngrok-free.app"]
+        allowedHosts: ["stag-secure-widely.ngrok-free.app"]
     },
     plugins: [react()],
     resolve: {
