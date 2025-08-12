@@ -1,0 +1,249 @@
+{
+  "usableSessionsCount": 6,
+  "retiredSessionsCount": 0,
+  "sessions": [
+    {
+      "id": "session_HnXiw6Ypri",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:40.521Z",
+      "createdAt": "2025-08-12T07:52:40.521Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_flFegYMhVY",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": [
+          {
+            "key": "_attrb",
+            "value": "013c6e61-9701-4d74-80ad-c7f2fe95a1a3",
+            "expires": "2026-08-12T07:52:51.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.731Z"
+          },
+          {
+            "key": "ph_phc_eNuN6Ojnk9O7uWfC17z12AK85fNR0BY6IiGVy0Gfwzw_posthog",
+            "value": "%7B%22distinct_id%22%3A%2201989d44-7987-73f2-ae38-15a9ab0ad6f0%22%2C%22%24sesid%22%3A%5B1754985171818%2C%2201989d44-7985-7e4c-ae05-efd6c4ed52d3%22%2C1754985167237%5D%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22https%3A%2F%2Fmintlify.com%2F%22%7D%7D",
+            "expires": "2026-08-12T07:52:52.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "_gcl_au",
+            "value": "1.1.2138732529.1754985167",
+            "expires": "2025-11-10T07:52:47.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.731Z"
+          },
+          {
+            "key": "_ga_NZ6RFCB9LN",
+            "value": "GS2.1.s1754985167$o1$g1$t1754985172$j55$l0$h0",
+            "expires": "2026-09-16T07:52:52.055Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "_ga",
+            "value": "GA1.1.395526339.1754985168",
+            "expires": "2026-09-16T07:52:52.444Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "IndrXzk4dU01aEg4X0Nvb2VMcjhaM2ZSTDM5UTFyeHRxbzVmZWpRS2huM3FMX2Fub255bW91c1VzZXJJZCI%3D",
+            "value": "IjNjOWI4ZTRjLWU3YmQtNDA1NC1iYmMzLTMyNjAzODYxMmM4NyI=",
+            "expires": "2026-08-12T07:52:51.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.923Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "__hstc",
+            "value": "214098760.3fba500af1f9ddf561d502054348997d.1754985168911.1754985168911.1754985168911.1",
+            "expires": "2026-02-08T07:52:52.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.924Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "hubspotutk",
+            "value": "3fba500af1f9ddf561d502054348997d",
+            "expires": "2026-02-08T07:52:52.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.924Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "__hssrc",
+            "value": "1",
+            "expires": "2025-08-12T08:42:52.731Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.925Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "__hssc",
+            "value": "214098760.2.1754985168911",
+            "expires": "2025-08-12T08:22:52.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:48.925Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "_ga_RCYWHL7EQ7",
+            "value": "GS2.1.s1754985170$o1$g1$t1754985172$j58$l0$h0",
+            "expires": "2026-09-16T07:52:52.455Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:50.906Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          },
+          {
+            "key": "ph_phc_TXdpocbGVeZVm5VJmAsHTMrCofBQu3e0kN8HGMNGTVW_posthog",
+            "value": "%7B%22distinct_id%22%3A%2201989d44-8666-7b90-82a4-67d36d7f90a3%22%2C%22%24sesid%22%3A%5B1754985172415%2C%2201989d44-8664-7e29-ac10-2476fda3f1b7%22%2C1754985170532%5D%7D",
+            "expires": "2026-08-12T07:52:52.000Z",
+            "domain": "mintlify.com",
+            "path": "/",
+            "secure": true,
+            "hostOnly": false,
+            "creation": "2025-08-12T07:52:50.906Z",
+            "lastAccessed": "2025-08-12T07:52:52.732Z"
+          }
+        ]
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:40.524Z",
+      "createdAt": "2025-08-12T07:52:40.524Z",
+      "usageCount": 5,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_d4jr4l9J3j",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:49.051Z",
+      "createdAt": "2025-08-12T07:52:49.051Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_z9DcxHRctc",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:49.052Z",
+      "createdAt": "2025-08-12T07:52:49.052Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_3dYRGa4hJs",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:50.538Z",
+      "createdAt": "2025-08-12T07:52:50.538Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    },
+    {
+      "id": "session_6zjNzcZxTv",
+      "cookieJar": {
+        "version": "tough-cookie@5.1.2",
+        "storeType": "MemoryCookieStore",
+        "rejectPublicSuffixes": true,
+        "enableLooseMode": false,
+        "allowSpecialUseDomain": true,
+        "prefixSecurity": "silent",
+        "cookies": []
+      },
+      "userData": {},
+      "maxErrorScore": 3,
+      "errorScoreDecrement": 0.5,
+      "expiresAt": "2025-08-12T08:42:51.002Z",
+      "createdAt": "2025-08-12T07:52:51.002Z",
+      "usageCount": 0,
+      "maxUsageCount": 50,
+      "errorScore": 0
+    }
+  ]
+}

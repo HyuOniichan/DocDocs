@@ -1,9 +1,9 @@
-import 'dotenv/config'; 
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { config } from './config/';
 import route from './routes/';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 const app = express();
 
@@ -13,21 +13,22 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
     "http://localhost:8080", // dev - frontend
-    "http://http://127.0.0.1:6274/", // dev - mcp inspector
+    "http://localhost:5173", // dev - frontend
+    "http://127.0.0.1:6274", // dev - mcp inspector
     "https://stag-secure-widely.ngrok-free.app", // dev - ngrok 
 ]
 
 app.use(cors({
     origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) callback(null, true) 
-        else callback(new Error('Not allowed by CORS'), false) 
-    }, 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-    credentials: true, 
-})); 
+        if (!origin || allowedOrigins.includes(origin)) callback(null, true)
+        else callback(new Error('Not allowed by CORS'), false)
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 
 // Routes 
-route(app); 
+route(app);
 
 // Connect to database
 // mongoose.connect(process.env.MONGODB_URI || config.dbUrl) 

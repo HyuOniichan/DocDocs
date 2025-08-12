@@ -1,0 +1,9 @@
+{
+	"id": "lIwbPjXUQlkJ1MM",
+	"json": "{\"id\":\"lIwbPjXUQlkJ1MM\",\"url\":\"https://mintlify.com/\",\"loadedUrl\":\"https://mintlify.com/\",\"uniqueKey\":\"https://mintlify.com\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2025-08-12T07:52:48.988Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://mintlify.com",
+	"url": "https://mintlify.com/"
+}

@@ -1,0 +1,9 @@
+{
+	"id": "UD802ACI777E3DY",
+	"json": "{\"id\":\"UD802ACI777E3DY\",\"url\":\"https://mintlify.com/docs\",\"loadedUrl\":\"https://mintlify.com/docs\",\"uniqueKey\":\"https://mintlify.com/docs\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"crawlDepth\":1,\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2025-08-12T07:52:50.964Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://mintlify.com/docs",
+	"url": "https://mintlify.com/docs"
+}
