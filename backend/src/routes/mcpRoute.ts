@@ -25,7 +25,7 @@ router.post('/', async (req: Request, res: Response) => {
         console.error('Error handling MCP request:', error);
         if (!res.headersSent) {
             res.status(500).json({
-                jsonrpc: '2.0', 
+                jsonrpc: '2.0',
                 error: {
                     code: -32603,
                     message: 'Internal server error'

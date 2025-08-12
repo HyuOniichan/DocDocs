@@ -1,0 +1,9 @@
+{
+	"id": "qtUCowOBY3sJgyr",
+	"json": "{\"id\":\"qtUCowOBY3sJgyr\",\"url\":\"https://mintlify.com/docs/content/components/\",\"loadedUrl\":\"https://mintlify.com/docs\",\"uniqueKey\":\"https://mintlify.com/docs/content/components\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"crawlDepth\":1,\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2025-08-12T07:52:51.109Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://mintlify.com/docs/content/components",
+	"url": "https://mintlify.com/docs/content/components/"
+}

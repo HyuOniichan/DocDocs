@@ -1,4 +1,5 @@
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js'
+import { setSitemapTool, scrapeTechTool } from './tools/';
 
 function getServer() {
     const server = new McpServer({
@@ -11,23 +12,8 @@ function getServer() {
         }
     })
 
-    server.resource('test-resource',
-        'test://resource',
-        {
-            title: 'Test Resource',
-            description: 'Test resource for Model Context Protocol',
-            mimeType: 'application/json'
-        },
-        async (uri) => {
-            return {
-                contents: [{
-                    uri: uri.href,
-                    text: JSON.stringify({ message: 'This is a test resource' }),
-                    mimeType: 'application/json'
-                }]
-            }
-        }
-    )
+    scrapeTechTool(server);
+    setSitemapTool(server); 
 
     return server;
 }
